@@ -168,10 +168,10 @@ class DIIHead(BBoxHead):
         # Self attention
         proposal_feat = proposal_feat.permute(1, 0, 2)
         proposal_feat = self.attention_norm(self.attention(proposal_feat))
-        attn_feats = proposal_feat.permute(1, 0, 2)
 
         # instance interactive
-        proposal_feat = attn_feats.reshape(-1, self.in_channels)
+        proposal_feat = proposal_feat.permute(1, 0,
+                                              2).reshape(-1, self.in_channels)
         proposal_feat_iic = self.instance_interactive_conv(
             proposal_feat, roi_feat)
         proposal_feat = proposal_feat + self.instance_interactive_conv_dropout(
@@ -189,13 +189,10 @@ class DIIHead(BBoxHead):
         for reg_layer in self.reg_fcs:
             reg_feat = reg_layer(reg_feat)
 
-        cls_score = self.fc_cls(cls_feat).view(
-            N, num_proposals, self.num_classes
-            if self.loss_cls.use_sigmoid else self.num_classes + 1)
-        bbox_delta = self.fc_reg(reg_feat).view(N, num_proposals, 4)
+        cls_score = self.fc_cls(cls_feat).view(N, num_proposals, -1)
+        bbox_delta = self.fc_reg(reg_feat).view(N, num_proposals, -1)
 
-        return cls_score, bbox_delta, obj_feat.view(
-            N, num_proposals, self.in_channels), attn_feats
+        return cls_score, bbox_delta, obj_feat.view(N, num_proposals, -1)
 
     @force_fp32(apply_to=('cls_score', 'bbox_pred'))
     def loss(self,
@@ -305,12 +302,11 @@ class DIIHead(BBoxHead):
             neg_bboxes (Tensor): Contains all the negative boxes,
                 has shape (num_neg, 4), the last dimension 4
                 represents [tl_x, tl_y, br_x, br_y].
-            pos_gt_bboxes (Tensor): Contains gt_boxes for
-                all positive samples, has shape (num_pos, 4),
-                the last dimension 4
+            pos_gt_bboxes (Tensor): Contains all the gt_boxes,
+                has shape (num_gt, 4), the last dimension 4
                 represents [tl_x, tl_y, br_x, br_y].
-            pos_gt_labels (Tensor): Contains gt_labels for
-                all positive samples, has shape (num_pos, ).
+            pos_gt_labels (Tensor): Contains all the gt_labels,
+                has shape (num_gt).
             cfg (obj:`ConfigDict`): `train_cfg` of R-CNN.
 
         Returns:

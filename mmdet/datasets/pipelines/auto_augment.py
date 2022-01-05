@@ -200,7 +200,6 @@ class Shear:
                 border_value=self.img_fill_val,
                 interpolation=interpolation)
             results[key] = img_sheared.astype(img.dtype)
-            results['img_shape'] = results[key].shape
 
     def _shear_bboxes(self, results, magnitude):
         """Shear the bboxes."""
@@ -422,7 +421,6 @@ class Rotate:
             img_rotated = mmcv.imrotate(
                 img, angle, center, scale, border_value=self.img_fill_val)
             results[key] = img_rotated.astype(img.dtype)
-            results['img_shape'] = results[key].shape
 
     def _rotate_bboxes(self, results, rotate_matrix):
         """Rotate the bboxes."""
@@ -623,7 +621,6 @@ class Translate:
             img = results[key].copy()
             results[key] = mmcv.imtranslate(
                 img, offset, direction, self.img_fill_val).astype(img.dtype)
-            results['img_shape'] = results[key].shape
 
     def _translate_bboxes(self, results, offset):
         """Shift bboxes horizontally or vertically, according to offset."""

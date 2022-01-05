@@ -33,11 +33,11 @@ def nlc_to_nchw(x, hw_shape):
     """Convert [N, L, C] shape tensor to [N, C, H, W] shape tensor.
 
     Args:
-        x (Tensor): The input tensor of shape [N, L, C] before conversion.
+        x (Tensor): The input tensor of shape [N, L, C] before convertion.
         hw_shape (Sequence[int]): The height and width of output feature map.
 
     Returns:
-        Tensor: The output tensor of shape [N, C, H, W] after conversion.
+        Tensor: The output tensor of shape [N, C, H, W] after convertion.
     """
     H, W = hw_shape
     assert len(x.shape) == 3
@@ -50,10 +50,10 @@ def nchw_to_nlc(x):
     """Flatten [N, C, H, W] shape tensor to [N, L, C] shape tensor.
 
     Args:
-        x (Tensor): The input tensor of shape [N, C, H, W] before conversion.
+        x (Tensor): The input tensor of shape [N, C, H, W] before convertion.
 
     Returns:
-        Tensor: The output tensor of shape [N, L, C] after conversion.
+        Tensor: The output tensor of shape [N, L, C] after convertion.
     """
     assert len(x.shape) == 4
     return x.flatten(2).transpose(1, 2).contiguous()
@@ -1070,8 +1070,6 @@ class DynamicConv(BaseModule):
             by default
         input_feat_shape (int): The shape of input feature.
             Defaults to 7.
-        with_proj (bool): Project two-dimentional feature to
-            one-dimentional feature. Default to True.
         act_cfg (dict): The activation config for DynamicConv.
         norm_cfg (dict): Config dict for normalization layer. Default
             layer normalization.
@@ -1084,7 +1082,6 @@ class DynamicConv(BaseModule):
                  feat_channels=64,
                  out_channels=None,
                  input_feat_shape=7,
-                 with_proj=True,
                  act_cfg=dict(type='ReLU', inplace=True),
                  norm_cfg=dict(type='LN'),
                  init_cfg=None):
@@ -1093,7 +1090,6 @@ class DynamicConv(BaseModule):
         self.feat_channels = feat_channels
         self.out_channels_raw = out_channels
         self.input_feat_shape = input_feat_shape
-        self.with_proj = with_proj
         self.act_cfg = act_cfg
         self.norm_cfg = norm_cfg
         self.out_channels = out_channels if out_channels else in_channels
@@ -1109,9 +1105,8 @@ class DynamicConv(BaseModule):
         self.activation = build_activation_layer(act_cfg)
 
         num_output = self.out_channels * input_feat_shape**2
-        if self.with_proj:
-            self.fc_layer = nn.Linear(num_output, self.out_channels)
-            self.fc_norm = build_norm_layer(norm_cfg, self.out_channels)[1]
+        self.fc_layer = nn.Linear(num_output, self.out_channels)
+        self.fc_norm = build_norm_layer(norm_cfg, self.out_channels)[1]
 
     def forward(self, param_feature, input_feature):
         """Forward function for `DynamicConv`.
@@ -1128,7 +1123,9 @@ class DynamicConv(BaseModule):
             Tensor: The output feature has shape
             (num_all_proposals, out_channels).
         """
-        input_feature = input_feature.flatten(2).permute(2, 0, 1)
+        num_proposals = param_feature.size(0)
+        input_feature = input_feature.view(num_proposals, self.in_channels,
+                                           -1).permute(2, 0, 1)
 
         input_feature = input_feature.permute(1, 0, 2)
         parameters = self.dynamic_layer(param_feature)
@@ -1150,10 +1147,9 @@ class DynamicConv(BaseModule):
         features = self.norm_out(features)
         features = self.activation(features)
 
-        if self.with_proj:
-            features = features.flatten(1)
-            features = self.fc_layer(features)
-            features = self.fc_norm(features)
-            features = self.activation(features)
+        features = features.flatten(1)
+        features = self.fc_layer(features)
+        features = self.fc_norm(features)
+        features = self.activation(features)
 
         return features
