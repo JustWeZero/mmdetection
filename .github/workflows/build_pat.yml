@@ -2,10 +2,6 @@ name: build_pat
 
 on: push
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build_parrots:
     runs-on: ubuntu-latest
