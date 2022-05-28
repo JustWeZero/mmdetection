@@ -20,6 +20,7 @@ parts/
 sdist/
 var/
 wheels/
+checkpoints/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -117,7 +118,11 @@ docs/modelzoo_statistics.md
 mmdet/.mim
 work_dirs/
 
+
 # Pytorch
 *.pth
 *.py~
 *.sh~
+
+huicv/
+exp/
