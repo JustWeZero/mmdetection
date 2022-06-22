@@ -126,3 +126,8 @@ work_dirs/
 
 huicv/
 exp/
+cache/*
+test_data/
+cache/
+view/video_player/LAVFilters-0.74.1-Installer.exe
+
