@@ -3,6 +3,7 @@ from .bfp import BFP
 from .channel_mapper import ChannelMapper
 from .ct_resnet_neck import CTResNetNeck
 from .dilated_encoder import DilatedEncoder
+from .dyhead import DyHead
 from .fpg import FPG
 from .fpn import FPN
 from .fpn_carafe import FPN_CARAFE
@@ -26,13 +27,13 @@ from .fpn_lkaattention_ssm import lka_FPN_ssm
 __all__ = [
     'FPN', 'BFP', 'ChannelMapper', 'HRFPN', 'NASFPN', 'FPN_CARAFE', 'PAFPN',
     'NASFCOS_FPN', 'RFP', 'YOLOV3Neck', 'FPG', 'DilatedEncoder',
-    'CTResNetNeck', 'SSDNeck', 'YOLOXPAFPN'
-    ,'RFCR_FPN'
-    ,'SSFPN'
-    ,'PAFPN_UNIFIED_CARAFE'
-    ,'Attention_PAFPN'
-    ,'PAFPN_LKAATTENTION_UNIFIED_CARAFE'
-    ,'lka_FPN'
-    ,'PAFPN_LKAATTENTION'
-    ,'lka_FPN_ssm'
+    'CTResNetNeck', 'SSDNeck', 'YOLOXPAFPN', 'DyHead'
+    , 'RFCR_FPN'
+    , 'SSFPN'
+    , 'PAFPN_UNIFIED_CARAFE'
+    , 'Attention_PAFPN'
+    , 'PAFPN_LKAATTENTION_UNIFIED_CARAFE'
+    , 'lka_FPN'
+    , 'PAFPN_LKAATTENTION'
+    , 'lka_FPN_ssm'
 ]

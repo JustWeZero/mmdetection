@@ -4,6 +4,8 @@ from .combined_sampler import CombinedSampler
 from .ic_neg_sampler import ICNegSampler
 from .instance_balanced_pos_sampler import InstanceBalancedPosSampler
 from .iou_balanced_neg_sampler import IoUBalancedNegSampler
+from .mask_pseudo_sampler import MaskPseudoSampler
+from .mask_sampling_result import MaskSamplingResult
 from .ohem_sampler import OHEMSampler
 from .pseudo_sampler import PseudoSampler
 from .random_sampler import RandomSampler
@@ -13,6 +15,7 @@ from .score_hlr_sampler import ScoreHLRSampler
 __all__ = [
     'BaseSampler', 'PseudoSampler', 'RandomSampler',
     'InstanceBalancedPosSampler', 'IoUBalancedNegSampler', 'CombinedSampler',
-    'OHEMSampler', 'SamplingResult', 'ScoreHLRSampler'
+    'OHEMSampler', 'SamplingResult', 'ScoreHLRSampler', 'MaskPseudoSampler',
+    'MaskSamplingResult'
     ,'ICNegSampler'
 ]
