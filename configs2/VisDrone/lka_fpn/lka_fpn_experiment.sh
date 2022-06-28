@@ -35,4 +35,9 @@ tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
   --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
   --cfg-options optimizer.lr=${LR} data.samples_per_gpu=16
 
+export GPU=4 && LR=0.16 && CONFIG="faster_rcnn_r18_lka_fpn_outch256_1x_VisDrone640"
+tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
+  --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
+  --cfg-options optimizer.lr=${LR} data.samples_per_gpu=16
+
 
