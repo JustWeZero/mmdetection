@@ -336,15 +336,16 @@ def imshow_det_bboxes(img,
                 areas.append(stats[largest_id, -1])
             areas = np.stack(areas, axis=0)
             scales = _get_adaptive_scales(areas)
-            draw_labels(
-                ax,
-                labels[num_bboxes:],
-                positions,
-                class_names=class_names,
-                color=text_colors,
-                font_size=font_size,
-                scales=scales,
-                horizontal_alignment=horizontal_alignment)
+            # modify by lzj 为了去掉显示的文字，防止检测框过小看不清
+            # draw_labels(
+            #     ax,
+            #     labels[num_bboxes:],
+            #     positions,
+            #     class_names=class_names,
+            #     color=text_colors,
+            #     font_size=font_size,
+            #     scales=scales,
+            #     horizontal_alignment=horizontal_alignment)
 
     plt.imshow(img)
 

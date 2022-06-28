@@ -225,6 +225,7 @@ def show_result_pyplot(model,
     """Visualize the detection results on the image.
 
     Args:
+        show_result: whether to show result
         model (nn.Module): The loaded detector.
         img (str or np.ndarray): Image filename or loaded image.
         result (tuple[list] or list): The detection result, can be either
