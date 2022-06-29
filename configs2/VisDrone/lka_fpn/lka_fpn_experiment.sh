@@ -35,4 +35,11 @@ tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
   --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
   --cfg-options optimizer.lr=${LR} data.samples_per_gpu=16
 
+# Epoch(val) [12][137]   bbox_mAP: 0.2430, bbox_mAP_50: 0.4790, bbox_mAP_75: 0.2210, bbox_mAP_s: 0.1670, bbox_mAP_m: 0.3450, bbox_mAP_l: 0.4040,
+# bbox_mAP_copypaste: 0.243 0.479 0.221 0.167 0.345 0.404
+export GPU=4 && LR=0.08 && CONFIG="faster_rcnn_r18_lka_fpn_outch256_1x_VisDrone640"
+tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
+  --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
+  --cfg-options optimizer.lr=${LR} data.samples_per_gpu=8
+
 
