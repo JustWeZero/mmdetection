@@ -9,3 +9,10 @@ python tools/test.py configs2/VisDrone/lka_fpn/${CONFIG}.py \
     --work-dir exp/${CONFIG}_lr${LR}_1x_${GPU}g \
     --show-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/test_result \
     --show-score-thr 0.7 --fuse-conv-bn
+
+export GPU=4 && LR=0.16 && CONFIG="faster_rcnn_r18_lka_fpn_1x_VisDrone640"
+python tools/test.py configs2/VisDrone/lka_fpn/${CONFIG}.py \
+     ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/best_bbox_mAP_epoch_12.pth \
+    --work-dir exp/${CONFIG}_lr${LR}_1x_${GPU}g \
+    --show-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/test_result \
+    --show-score-thr 0.7 --fuse-conv-bn
