@@ -147,8 +147,7 @@ class BBoxTestMixin:
             flip_direction = img_meta[0]['flip_direction']
             # TODO more flexible
             proposals = bbox_mapping(proposal_list[0][:, :4], img_shape,
-                                     scale_factor, flip, flip_direction,
-                                     img_meta[0].get('tile_offset', None)) # add by hui
+                                     scale_factor, flip, flip_direction)
             rois = bbox2roi([proposals])
             bbox_results = self._bbox_forward(x, rois)
             bboxes, scores = self.bbox_head.get_bboxes(
@@ -291,8 +290,7 @@ class MaskTestMixin:
                 flip = img_meta[0]['flip']
                 flip_direction = img_meta[0]['flip_direction']
                 _bboxes = bbox_mapping(det_bboxes[:, :4], img_shape,
-                                       scale_factor, flip, flip_direction,
-                                       img_meta[0].get('tile_offset', None))  # add by hui
+                                       scale_factor, flip, flip_direction)
                 mask_rois = bbox2roi([_bboxes])
                 mask_results = self._mask_forward(x, mask_rois)
                 # convert to numpy array to save memory
