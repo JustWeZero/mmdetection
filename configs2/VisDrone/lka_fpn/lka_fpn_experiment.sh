@@ -42,4 +42,12 @@ tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
   --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
   --cfg-options optimizer.lr=${LR} data.samples_per_gpu=8
 
+# Epoch(val) [12][137]   bbox_mAP: 0.2540, bbox_mAP_50: 0.4960, bbox_mAP_75: 0.2340, bbox_mAP_s: 0.1730, bbox_mAP_m: 0.3660, bbox_mAP_l: 0.3880,
+# bbox_mAP_copypaste: 0.254 0.496 0.234 0.173 0.366 0.388
+# 啥情况……r50和r18的结果差这么多……要蒸backbone了吗
+export GPU=4 && LR=0.08 && CONFIG="faster_rcnn_r50_lka_fpn_outch64_1x_VisDrone640"
+tools/dist_train.sh configs2/VisDrone/lka_fpn/${CONFIG}.py $GPU \
+  --work-dir ../VisDrone_cache/lka_fpn/${CONFIG}/slice_640x640_lr${LR}_1x_${GPU}g/ \
+  --cfg-options optimizer.lr=${LR} data.samples_per_gpu=8
+
 
