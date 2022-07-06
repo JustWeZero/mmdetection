@@ -41,8 +41,8 @@ def dice_loss(pred,
             the loss. Defaults to None.
     """
 
-    input = pred.reshape(pred.size()[0], -1)
-    target = target.reshape(target.size()[0], -1).float()
+    input = pred.flatten(1)
+    target = target.flatten(1).float()
 
     a = torch.sum(input * target, 1)
     if naive_dice:
