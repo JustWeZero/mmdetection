@@ -243,8 +243,10 @@ data = dict(
         ]),
     test=dict(
         type='VisDroneCocoDataset',
-        ann_file='../data/VisDrone2019/test-dev.json',
-        img_prefix='../data/VisDrone2019/VisDrone2019-DET-test-dev/images',
+        # ann_file='../data/VisDrone2019/test-dev.json',
+        # img_prefix='../data/VisDrone2019/VisDrone2019-DET-test-dev/images',
+        ann_file='../data/VisDrone2019/val.json',
+        img_prefix='../data/VisDrone2019/VisDrone2019-DET-val/images',
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(
