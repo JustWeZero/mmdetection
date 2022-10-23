@@ -5,8 +5,8 @@ _base_ = [
     '../../../configs/_base_/schedules/schedule_1x.py', '../../../configs/_base_/default_runtime.py'
 ]
 # optimizer
-# optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001) # 4 gpu
-optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)  # single GPU
+optimizer = dict(type='SGD', lr=0.02, momentum=0.9, weight_decay=0.0001) # 4 gpu
+# optimizer = dict(type='SGD', lr=0.005, momentum=0.9, weight_decay=0.0001)  # single GPU
 
 model = dict(
     type='RetinaNet',

@@ -1,7 +1,7 @@
 _base_ = [
     # '../../_base_/datasets/TinyPerson/TinyPerson_detection_640x640.py',
     '../../../configs/_base_/models/faster_rcnn_r50_fpn.py',
-    '../../_base_/datasets/TinyPerson/TinyPerson_newData_detection_640x512.py',
+    '../../_base_/datasets/TinyPerson/TinyPerson_detection_640x512_newData.py',
     '../../../configs/_base_/schedules/schedule_2x.py',
     '../../../configs/_base_/default_runtime.py'
 ]

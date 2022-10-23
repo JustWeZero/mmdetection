@@ -1,5 +1,5 @@
 _base_ = ['../../../configs/_base_/schedules/schedule_1x.py', '../../../configs/_base_/default_runtime.py',
-          '../../_base_/datasets/TinyPerson/TinyPerson_newData_detection_640x512.py', ]
+          '../../_base_/datasets/TinyPerson/TinyPerson_detection_640x512_newData.py', ]
 
 # model settings
 model = dict(
